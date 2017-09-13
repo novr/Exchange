@@ -1,6 +1,7 @@
 package com.github.novr.coiney.exchange.api;
 
-import com.github.novr.coiney.exchange.api.service.ExchangeRatesApi;
+import com.annimon.stream.Stream;
+import com.github.novr.coiney.exchange.api.service.ExchangeRatesService;
 import com.github.novr.coiney.exchange.model.Rate;
 
 import java.util.List;
@@ -17,14 +18,17 @@ import io.reactivex.Single;
 
 @Singleton
 public class ExchangeRatesClient {
-    private final ExchangeRatesApi exchangeRatesService;
+    private final ExchangeRatesService exchangeRatesService;
 
     @Inject
-    public ExchangeRatesClient(ExchangeRatesApi exchangeRatesService) {
+    public ExchangeRatesClient(ExchangeRatesService exchangeRatesService) {
         this.exchangeRatesService = exchangeRatesService;
     }
 
     public Single<Map<String,List<Rate>>> getRates() {
-        return exchangeRatesService.getRates();
+        return exchangeRatesService.getRates().map(maps -> {
+            Stream.of(maps);
+            return null;
+        });
     }
 }

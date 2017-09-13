@@ -23,7 +23,6 @@ public class RatesRemoteDataSource implements RatesDataSource {
         this.client =client;
     }
 
-    @Override
     public Single<Map<String, List<Rate>>> getRates() {
         return client.getRates();
     }

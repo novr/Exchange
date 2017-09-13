@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "1034396914446",
+    "firebase_url": "https://exchange-3ecb6.firebaseio.com",
+    "project_id": "exchange-3ecb6",
+    "storage_bucket": "exchange-3ecb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034396914446:android:048184086e6569a6",
+        "android_client_info": {
+          "package_name": "com.github.novr.coiney.exchange"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1034396914446-a6ti0chon8hl53ps60rtj2e99uubpjnl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD5Sl5yg27ERrub6bOg2q7XGKmkeNMdz4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034396914446:android:81c619f510122795",
+        "android_client_info": {
+          "package_name": "com.github.novr.coiney.exchange.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1034396914446-a6ti0chon8hl53ps60rtj2e99uubpjnl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD5Sl5yg27ERrub6bOg2q7XGKmkeNMdz4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,43 +1,92 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+// Manifest version
+def versionMajor = 1
+def versionMinor = 1
+def versionPatch = 0
+
+def packageName = "com.github.novr.coiney.exchange"
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion compile_sdk_version as int
+    buildToolsVersion build_tools_version
+    dataBinding {
+        enabled = true
+    }
     defaultConfig {
-        applicationId "com.github.novr.coiney.exchange"
-        minSdkVersion 14
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        applicationId packageName
+        minSdkVersion min_sdk_version as int
+        targetSdkVersion target_sdk_version as int
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        jackOptions {
-            enabled true
+
+        def properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        // local.propertiesのapi_keyに定義されている値を読み込む
+        def API_ROOT = properties.getProperty("api.root")
+        buildConfigField "String", "API_ROOT", "\"${API_ROOT}\""
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix "-debug"
+            debuggable true
+            zipAlignEnabled true
+            testCoverageEnabled true
+        }
+        release {
+            debuggable false
+            zipAlignEnabled true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    aaptOptions {
+        noCompress 'apk'
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+}
+
+configurations {
+    all {
+        resolutionStrategy {
+            force "com.android.support:support-annotations:${support_lib_version}"
         }
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support:support-v4:26.+'
-    compile 'com.android.support:support-annotations:26.+'
-    compile 'com.android.support:design:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+
+    // Support Library
+    compile "com.android.support:support-v4:${support_lib_version}"
+    compile "com.android.support:appcompat-v7:${support_lib_version}"
+    compile "com.android.support:support-annotations:${support_lib_version}"
+    compile "com.android.support:design:${support_lib_version}"
+    compile "com.android.support:recyclerview-v7:${support_lib_version}"
+
+    // Firebase(analytics, crash report)
+    compile 'com.google.firebase:firebase-core:11.0.4'
+    compile 'com.google.firebase:firebase-crash:11.0.4'
 
     // Network
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
@@ -56,4 +105,22 @@ dependencies {
 
     // Android Utility
     compile 'com.jakewharton.timber:timber:4.5.1'
+    compile 'net.danlew:android.joda:2.9.9'
+
+    // Test
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.annimon:stream:1.1.5'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:3.2.2'
+    testCompile 'com.squareup.assertj:assertj-android:1.1.1'
+    testCompile 'org.mockito:mockito-core:2.7.0'
+    androidTestCompile 'org.mockito:mockito-android:2.7.0'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.squareup.assertj:assertj-android:1.1.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
 }
+
+apply plugin: 'com.google.gms.google-services'

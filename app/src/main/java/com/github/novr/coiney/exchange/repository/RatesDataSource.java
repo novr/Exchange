@@ -5,8 +5,6 @@ import com.github.novr.coiney.exchange.model.Rate;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**

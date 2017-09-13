@@ -5,7 +5,7 @@ import com.github.novr.coiney.exchange.pref.MyPreferencesClient;
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
-import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 /**
  * Created by komiya on 2017/09/10.
@@ -21,7 +21,7 @@ public class MyRateLocalDataSource implements MyRateDataSource {
     }
 
     @Override
-    public Maybe<String> getSelected() {
+    public Single<String> getSelected() {
         return client.getSelected();
     }
 
